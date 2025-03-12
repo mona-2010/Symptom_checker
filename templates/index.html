@@ -1,0 +1,277 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symptom Checker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+        html, body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    color: black;
+    text-align: center;
+    background: linear-gradient(120deg, #dfdfe2, #d1f2eb, #f5b7b1, #d5dbdb);
+    background-size: 400% 400%;
+    animation: aurora 15s ease infinite;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+form {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    padding: 20px;
+    width: 90%;
+    max-width: 800px;
+    box-shadow: 0 8px 20px rgba(199, 177, 177, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px auto; /* Allows scrolling if content exceeds viewport */
+}
+
+.symptoms-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+}
+
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .symptoms-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            padding: 20px;
+        }
+
+        .symptom-btn {
+            background: #c0b9b9;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+        }
+
+        .symptom-btn:hover {
+            background: #007bff;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .selected {
+            background: #28a745 !important;
+            color: white !important;
+            border: 2px solid #28a745 !important;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 15px;
+            font-size: 1.5em;
+            background: #050322;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #080808;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3>🏥Symptom Checker 🤖</h3>
+        <p><strong>"Your Health, Your Guide – Instantly Analyze Symptoms & Get Insights!"</strong></p>
+        <p>🔍 Check your symptoms, discover possible conditions, and get personalized recommendations – all in seconds!</p>    
+        <div class="symptoms-container">
+            {% for symptom in symptoms %}
+                <div class="symptom-btn" onclick="toggleSelection(this)" data-value="{{ symptom }}">
+                    {{ symptom }} 
+                    {% if symptom == "fever" %}🌡️{% elif symptom == "headache" %}🤕{% elif symptom == "fatigue" %}😴{% elif symptom == "cough" %}🤧{% elif symptom == "shortness of breath" %}😮‍💨{% elif symptom == "loss of taste" %}👅{% elif symptom == "loss of smell" %}👃{% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        <form id="symptomForm" action="/diagnose" method="post">
+            <input type="hidden" name="symptoms-selector" id="selectedSymptoms">
+            <button type="submit">Diagnose</button>
+        </form>
+        </div>
+
+    <script>
+        function toggleSelection(element) {
+            element.classList.toggle("selected");
+            updateHiddenInput();
+        }
+
+        function updateHiddenInput() {
+            let selectedValues = Array.from(document.querySelectorAll('.selected'))
+                                      .map(el => el.getAttribute('data-value'));
+            document.getElementById('selectedSymptoms').value = selectedValues.join(",");
+        }
+    </script>
+     <footer>
+        <p>🚀 Created by Monalisa | Symptom Checker 🤖</p>
+    </footer>
+    
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Symptom Checker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+        html, body {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background: linear-gradient(120deg, #dfdfe2, #d1f2eb, #f5b7b1, #d5dbdb);
+            background-size: 400% 400%;
+            animation: aurora 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .symptoms-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px;
+        }
+
+        .symptom-btn {
+            background: #fcfafa;
+            border: 2px solid #0f033b;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .symptom-btn:hover, .selected {
+            background: #0f033b !important;
+            color: white !important;
+            border: 2px solid #0f033b!important;
+            transform: scale(1.05);
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 15px;
+            font-size: 1.2em;
+            background: #050322;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #080808;
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3>🏥 AI Symptom Checker 🤖</h3>
+        <p><strong>"Your Health, Your Guide – Instantly Analyze Symptoms & Get Insights!"</strong></p>
+        <p>🔍 Select symptoms, discover possible conditions, and get personalized recommendations!</p>    
+
+        <div class="symptoms-container">
+            {% for symptom in symptoms %}
+                <div class="symptom-btn" onclick="toggleSelection(this)" data-value="{{ symptom }}">
+                    {{ symptom }} 
+                    {% if symptom == "fever" %}🌡️{% elif symptom == "headache" %}🤕{% elif symptom == "fatigue" %}😴{% elif symptom == "cough" %}🤧{% elif symptom == "shortness of breath" %}😮‍💨{% elif symptom == "loss of taste" %}👅{% elif symptom == "loss of smell" %}👃{% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <form id="symptomForm" action="/diagnose" method="post">
+            <input type="hidden" name="symptoms-selector" id="selectedSymptoms">
+            <button type="submit">Diagnose</button>
+        </form>
+    </div>
+
+    <script>
+        function toggleSelection(element) {
+            element.classList.toggle("selected");
+            updateHiddenInput();
+        }
+
+        function updateHiddenInput() {
+            let selectedValues = Array.from(document.querySelectorAll('.selected'))
+                                      .map(el => el.getAttribute('data-value'));
+            document.getElementById('selectedSymptoms').value = selectedValues.join(",");
+        }
+    </script>
+
+    <footer>
+        <p>🚀 Created by Monalisa | AI Symptom Checker 🤖</p>
+        <p>⚠️ Disclaimer: This symptom checker is for study purposes only. Consult a doctor before taking any medicines. 🏥</p>
+
+    </footer>
+</body>
+</html>
