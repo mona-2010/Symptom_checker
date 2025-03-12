@@ -1,5 +1,10 @@
 Symptom Checker Web Application
 
+## 🚀 How to Run
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/YOUR_GITHUB_USERNAME/Symptom_checker.git
+
 Introduction:
 The Symptom Checker web application is designed to help users identify potential health conditions based on the symptoms they are experiencing. 
 By selecting symptoms from a list, users receive a probable diagnosis along with precautions and suggested medicines.
